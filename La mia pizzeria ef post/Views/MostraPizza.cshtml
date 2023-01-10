@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+}
+@model la_mia_pizzeria_static.Models.Pizza;
+
+<div class="container">
+	<main role="main" class="pb-3">
+		<div class="text-center">
+			<h1 class="display-4 pb-5">La pizza @Model.Nome</h1>
+			<div class="row">
+				<div class="offset-4 col-4">
+					<div>Pizza @Model.Nome</div>
+
+					<div>@Model.Desc</div>
+					<div>Prezzo : @Model.Prezzo €</div>
+				</div>
+				<div>
+					<a href="@Url.Action("Pizzeria", "Pizza")" style="width:150px" class="btn btn-primary">Torna alla Lista</a>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
