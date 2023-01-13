@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using static La_mia_pizzeria_ef_post.Models.Pizza.pizzaList;
 using static La_mia_pizzeria_ef_post.Models.Pizza;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace La_mia_pizzeria_ef_post.Controllers
 {
@@ -61,7 +60,7 @@ namespace La_mia_pizzeria_ef_post.Controllers
 		}
 	}
 
-	[HttpPizza]
+	[HttpPost]
 	[ValidateAntiForgeryToken]
 
 	public IActionResult Update(Pizza formData)
@@ -92,12 +91,12 @@ namespace La_mia_pizzeria_ef_post.Controllers
 		}
 	}
 
-	[HttpPizza]
+	[HttpPost]
 	[ValidateAntiForgeryToken]
 
 	public IActionResult Delete(int id)
 	{
-		using(PizzaContext db = new PizzaContext())
+		using (PizzaContext db = new PizzaContext())
 		{
 			Pizza pizzaToDelete = db.Pizze.Where(Pizze => Pizze.Id == id) FirstOrDefault();
 
@@ -107,11 +106,14 @@ namespace La_mia_pizzeria_ef_post.Controllers
 				db.SaveChanges();
 
 				return RedirectToActionResult("Index");
-			} else
+			}
+			else
 			{
 				return NotFoundObjectResult("La pizza da eliminare non è stata trovata");
 			}
 		}
 	}
 }
+
+
 
