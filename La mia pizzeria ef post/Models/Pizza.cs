@@ -13,16 +13,16 @@ namespace La_mia_pizzeria_ef_post.Models
 		public string? Nome { get; set; }
 
 		[Required(ErrorMessage = "La Descrizione è obbligatoria")]
-		
+
 		public string? Desc { get; set; }
 
 		[Required(ErrorMessage = "Il Prezzo è obbligatorio")]
 
 		[Range(1, int.MaxValue, ErrorMessage = "Messaggio di errore")]
 		public int? Prezzo { get; set; }
-		public Pizza( int Id, string Nome, string Descrizione, int Prezzo)
+		public Pizza(int Id, string Nome, string Descrizione, int Prezzo)
 		{
-			
+
 			this.Nome = Nome;
 			this.Descrizione = Descrizione;
 			this.Prezzo = Prezzo;
@@ -51,3 +51,5 @@ namespace La_mia_pizzeria_ef_post.Models
 				}
 			}
 		}
+	}
+}

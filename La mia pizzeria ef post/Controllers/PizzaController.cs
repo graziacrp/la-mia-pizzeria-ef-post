@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using static La_mia_pizzeria_ef_post.Models.Pizza.pizzaList;
 using static La_mia_pizzeria_ef_post.Models.Pizza;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace La_mia_pizzeria_ef_post.Controllers
 {
@@ -59,4 +60,58 @@ namespace La_mia_pizzeria_ef_post.Controllers
 
 		}
 	}
+
+	[HttpPizza]
+	[ValidateAntiForgeryToken]
+
+	public IActionResult Update(Pizza formData)
+	{
+		if (!ModelState.IsValid)
+		{
+			return View("Update", formData);
+		}
+
+		using (PizzaContext db = new PizzaContext())
+		{
+			Pizza pizzaToUpdate = db.Pizzas.Where(Pizza => Pizza.Id == formData.Id).FirstOrDefault();
+
+			if (pizzaToUpdate != null)
+			{
+				pizzaToUpdate.Nome = formData.Nome;
+				pizzaToUpdate.Descrizione = formData.Descrizione;
+				pizzaToUpdate.Prezzo = formData.Prezzo;
+
+				db.SaveChanges();
+
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return NotFound("La pizza che vuoi modificare non è stata trovata");
+			}
+		}
+	}
+
+	[HttpPizza]
+	[ValidateAntiForgeryToken]
+
+	public IActionResult Delete(int id)
+	{
+		using(PizzaContext db = new PizzaContext())
+		{
+			Pizza pizzaToDelete = db.Pizze.Where(Pizze => Pizze.Id == id) FirstOrDefault();
+
+			if (pizzaToDelete != null)
+			{
+				db.Pizze.Remove(pizzaToDelete);
+				db.SaveChanges();
+
+				return RedirectToActionResult("Index");
+			} else
+			{
+				return NotFoundObjectResult("La pizza da eliminare non è stata trovata");
+			}
+		}
+	}
 }
+
